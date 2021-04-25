@@ -22,12 +22,17 @@ You should have received a copy of the GNU General Public License
 along with pyAvroPhonetic.  If not, see <http://www.gnu.org/licenses/>.
 
 """
+import sys
 
 def utf(text):
     """Shortcut funnction for encoding given text with utf-8"""
+    version = sys.version_info[0]
     try:
-#         output = unicode(text, encoding='utf-8')      # Python 3 replaced unicode() with str()
-        output = str(text, encoding='utf-8')
+        # In Python 3 use str() instead of unicode()
+        if version == 2:
+            output = unicode(text, encoding='utf-8')
+        elif version == 3:
+            output = str(text, encoding='utf-8')
     except UnicodeDecodeError:
         output = text
     except TypeError:
